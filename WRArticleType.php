@@ -32,3 +32,4 @@ $wgWRArticleType = new WRArticleType;
 $wgHooks['ParserFirstCallInit'][] = &$wgWRArticleType;
 $wgHooks['OutputPageBodyAttributes'][] = &$wgWRArticleType;
 $wgHooks['OutputPageParserOutput'][] = &$wgWRArticleType;
+$wgHooks['MakeGlobalVariablesScript'][] = &$wgWRArticleType;

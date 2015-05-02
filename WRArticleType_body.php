@@ -18,11 +18,14 @@ class WRArticleType {
 	);
 
 
+	/* List of types that we don't add as text to the page title */
 	private static $mNoTypeInTitle = array(
 		'unknown',
 		'portal',
 		'user'
 	);
+
+	private static $DATA_VAR = 'ArticleType';
 
 	/**
 	 * @throws MWException
@@ -60,7 +63,7 @@ class WRArticleType {
 		}
 	    $this->mArticleType = $articleType;
 	    $this->getCustomData()->setParserData(
-		    $parser->getOutput(), 'ArticleType',
+		    $parser->getOutput(), WRArticleType::$DATA_VAR,
 		    array( $articleType )
 	    );
 
@@ -68,15 +71,23 @@ class WRArticleType {
 	}
 
 	function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
-		$articleType = array_shift(
-			$this->getCustomData()->getParserData( $parserOutput, 'ArticleType' )
+		$this->mArticleType = array_shift(
+			$this->getCustomData()->getParserData( $parserOutput, WRArticleType::$DATA_VAR )
 		);
-		if ( !in_array( $articleType, self::$mNoTypeInTitle ) ) {
-			$this->setPageTitle( $out, $parserOutput, $articleType );
+		if ( !in_array( $this->mArticleType, self::$mNoTypeInTitle ) ) {
+			$this->setPageTitle( $out, $parserOutput );
 		}
 
 		return true;
 	}
+
+	function getArticleType( OutputPage $out ) {
+		return array_shift(
+			WRArticleType::getCustomData()->getPageData( $out, WRArticleType::$DATA_VAR )
+		);
+	}
+
+
 
 	/**
 	 * @param OutputPage $out
@@ -86,20 +97,34 @@ class WRArticleType {
 	 * @throws MWException
 	 */
 	public function onOutputPageBodyAttributes( OutputPage $out, $sk, &$bodyAttribs ) {
-		$this->mArticleType = array_shift(
-	        $this->getCustomData()->getPageData( $out, 'ArticleType' )
-		);
+		$this->mArticleType = $this->getArticleType( $out );
 		$bodyAttribs['class'] .= " article-type-{$this->mArticleType}";
 
 		return true;
 	}
 
 	/**
-	 * @param OutputPage $out
-	 * @param string $articleType
+	 * ResourceLoaderGetConfigVars hook
+	 * Make extension configuration variables available in javascript
+	 *
+	 * @param $vars
+	 * @return true
 	 */
-	protected function setPageTitle( OutputPage &$out, ParserOutput $parserOutput, $articleType) {
-		$msgKey = "articletype-type-$articleType";
+	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
+		$vars['wgArticleType'] = WRArticleType::getArticleType( $out );
+
+		return true;
+	}
+
+
+	/**
+	 * @param OutputPage $out
+	 * @param ParserOutput $parserOutput
+	 *
+	 * @internal param string $articleType
+	 */
+	protected function setPageTitle( OutputPage &$out, ParserOutput $parserOutput) {
+		$msgKey = "articletype-type-{$this->mArticleType}";
 		$typeMsg = wfMessage( $msgKey );
 		if ( $typeMsg->exists() && !$typeMsg->isBlank() ) {
 			$currentPageTitle = $parserOutput->getDisplayTitle();
