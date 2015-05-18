@@ -1,8 +1,8 @@
 <?php
 /**
- * WRArticleType extension - can be used to add a class to the page
- * @author Dror Snir
- * @copyright (C) 2014 Dror Snir (Kol-Zchut)
+ * WRArticleType extension - sets a page type
+ * @author Dror S. [FFS]
+ * @copyright (C) 2014 Dror S. & Kol-Zchut Ltd.
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  */
 
@@ -12,12 +12,12 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 /* Setup */
 $wgExtensionCredits['parserhook'][] = array(
-    'path'           => __FILE__,
-    'name'           => 'Kol-Zchut Article Type',
-    'author'         => 'Dror Snir ([http://www.kolzchut.org.il Kol-Zchut])',
-    'version'        => '1.1.0',
-    'url'            => 'http://www.kolzchut.org.il/he/Project:Extensions/WRArticleType',
-    'descriptionmsg' => 'wrarticletype-desc',
+	'path'           => __FILE__,
+	'name'           => 'Kol-Zchut Article Type',
+	'author'         => 'Dror Snir ([http://www.kolzchut.org.il Kol-Zchut])',
+	'version'        => '1.2.0',
+	'url'            => 'http://www.kolzchut.org.il/he/Project:Extensions/WRArticleType',
+	'descriptionmsg' => 'wrarticletype-desc',
 );
 
 // Internationalization
@@ -33,3 +33,18 @@ $wgHooks['ParserFirstCallInit'][] = &$wgWRArticleType;
 $wgHooks['OutputPageBodyAttributes'][] = &$wgWRArticleType;
 $wgHooks['OutputPageParserOutput'][] = &$wgWRArticleType;
 $wgHooks['MakeGlobalVariablesScript'][] = &$wgWRArticleType;
+
+// Default settings
+$wgArticleTypeConfig = array();
+$wgArticleTypeConfig['types'] = array(
+	'portal', 'right', 'service', 'term', 'proceeding', 'health',
+	'organization', 'government', 'event', 'ruling', 'law',
+	'letter', 'faq', 'newsletter', 'user', 'mainpage'
+);
+
+// List of types that we don't add as text to the page title
+$wgArticleTypeConfig['noTitleText'] = array(
+	'unknown',
+	'portal',
+	'user'
+);

@@ -11,35 +11,8 @@ class WRArticleType {
 	 * const
 	 * @private
 	 */
-	private static $mValidArticleTypes = array(
-	    'portal', 'right', 'service', 'term', 'proceeding', 'health',
-	    'organization', 'government', 'event', 'ruling', 'law',
-	    'letter', 'faq', 'newsletter', 'user', 'mainpage'
-	);
-
-
-	/* List of types that we don't add as text to the page title */
-	private static $mNoTypeInTitle = array(
-		'unknown',
-		'portal',
-		'user'
-	);
 
 	private static $DATA_VAR = 'ArticleType';
-
-	/**
-	 * @throws MWException
-	 * @return CustomData
-	 */
-	public function getCustomData() {
-	    global $wgCustomData;
-
-	    if ( !$wgCustomData instanceof CustomData ) {
-	        throw new MWException( 'CustomData extension is not properly installed.' );
-	    }
-
-	    return $wgCustomData;
-	}
 
 	public function onParserFirstCallInit( Parser &$parser ) {
 		$parser->setFunctionHook( 'articletype', array( $this, 'setArticleType' ) );
@@ -56,38 +29,34 @@ class WRArticleType {
 	 * @return string: HTML to insert in the page.
 	 */
 	public function setArticleType( Parser &$parser, $articleType ) {
-	    /* @todo: validate passed article type by using a wfMessage list? */
+		global $wgArticleTypeConfig;
 	    $articleType = trim( htmlspecialchars( $articleType ) );
-		if ( !in_array( $articleType, self::$mValidArticleTypes ) ) {
+		if ( !in_array( $articleType, $wgArticleTypeConfig['types'] ) ) {
 			$articleType = 'unknown';
 		}
 	    $this->mArticleType = $articleType;
-	    $this->getCustomData()->setParserData(
-		    $parser->getOutput(), WRArticleType::$DATA_VAR,
-		    array( $articleType )
-	    );
+	    $parser->getOutput()->setExtensionData( WRArticleType::$DATA_VAR, $articleType );
+		$parser->getOutput()->setProperty( WRArticleType::$DATA_VAR, $articleType );
 
 	    return;
 	}
 
 	function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
-		$this->mArticleType = array_shift(
-			$this->getCustomData()->getParserData( $parserOutput, WRArticleType::$DATA_VAR )
-		);
-		if ( !in_array( $this->mArticleType, self::$mNoTypeInTitle ) ) {
+		global $wgArticleTypeConfig;
+		if ( !in_array( $this->getArticleType(), $wgArticleTypeConfig['noTitleText'] ) ) {
 			$this->setPageTitle( $out, $parserOutput );
 		}
 
 		return true;
 	}
 
-	function getArticleType( OutputPage $out ) {
-		return array_shift(
-			WRArticleType::getCustomData()->getPageData( $out, WRArticleType::$DATA_VAR )
-		);
+	function getArticleType() {
+		if ( $this->mArticleType ) {
+			return $this->mArticleType;
+		}
+
+		return 'unknown';
 	}
-
-
 
 	/**
 	 * @param OutputPage $out
@@ -97,8 +66,7 @@ class WRArticleType {
 	 * @throws MWException
 	 */
 	public function onOutputPageBodyAttributes( OutputPage $out, $sk, &$bodyAttribs ) {
-		$this->mArticleType = $this->getArticleType( $out );
-		$bodyAttribs['class'] .= " article-type-{$this->mArticleType}";
+		$bodyAttribs['class'] .= " article-type-{$this->getArticleType()}";
 
 		return true;
 	}
@@ -110,8 +78,8 @@ class WRArticleType {
 	 * @param $vars
 	 * @return true
 	 */
-	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
-		$vars['wgArticleType'] = WRArticleType::getArticleType( $out );
+	public function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
+		$vars['wgArticleType'] = $this->getArticleType();
 
 		return true;
 	}
@@ -124,7 +92,7 @@ class WRArticleType {
 	 * @internal param string $articleType
 	 */
 	protected function setPageTitle( OutputPage &$out, ParserOutput $parserOutput) {
-		$msgKey = "articletype-type-{$this->mArticleType}";
+		$msgKey = "articletype-type-{$this->getArticleType()}";
 		$typeMsg = wfMessage( $msgKey );
 		if ( $typeMsg->exists() && !$typeMsg->isBlank() ) {
 			$currentPageTitle = $parserOutput->getDisplayTitle();
