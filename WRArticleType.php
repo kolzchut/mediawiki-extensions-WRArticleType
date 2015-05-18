@@ -2,7 +2,7 @@
 /**
  * WRArticleType extension - sets a page type
  * @author Dror S. [FFS]
- * @copyright (C) 2014 Dror S. & Kol-Zchut Ltd.
+ * @copyright © 2014-2015 Dror S. & Kol-Zchut Ltd.
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  */
 
@@ -14,7 +14,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['parserhook'][] = array(
 	'path'           => __FILE__,
 	'name'           => 'Kol-Zchut Article Type',
-	'author'         => 'Dror Snir ([http://www.kolzchut.org.il Kol-Zchut])',
+	'author'         => 'Dror S. [FFS] ([http://www.kolzchut.org.il Kol-Zchut])',
 	'version'        => '1.2.0',
 	'url'            => 'http://www.kolzchut.org.il/he/Project:Extensions/WRArticleType',
 	'descriptionmsg' => 'wrarticletype-desc',
