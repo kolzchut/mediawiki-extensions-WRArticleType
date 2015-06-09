@@ -28,11 +28,10 @@ $wgExtensionMessagesFiles['WRArticleTypeMagic'] = __DIR__ . '/WRArticleType.i18n
 $wgAutoloadClasses['WRArticleType'] = __DIR__ . '/WRArticleType_body.php';
 
 // Register hooks
-$wgWRArticleType = new WRArticleType;
-$wgHooks['ParserFirstCallInit'][] = &$wgWRArticleType;
-$wgHooks['OutputPageBodyAttributes'][] = &$wgWRArticleType;
-$wgHooks['OutputPageParserOutput'][] = &$wgWRArticleType;
-$wgHooks['MakeGlobalVariablesScript'][] = &$wgWRArticleType;
+$wgHooks['ParserFirstCallInit'][] = 'WRArticleType::onParserFirstCallInit';
+$wgHooks['OutputPageBodyAttributes'][] = 'WRArticleType::onOutputPageBodyAttributes';
+$wgHooks['OutputPageParserOutput'][] = 'WRArticleType::onOutputPageParserOutput';
+$wgHooks['MakeGlobalVariablesScript'][] = 'WRArticleType::onMakeGlobalVariablesScript';
 
 // Default settings
 $wgArticleTypeConfig = array();
