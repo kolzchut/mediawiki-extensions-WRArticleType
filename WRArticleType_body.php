@@ -64,7 +64,7 @@ class WRArticleType {
 			$type = $out->wgArticleType;
 		}
 
-		return $type ?: 'unkown';
+		return $type ?: 'unknown';
 	}
 
 	/**
