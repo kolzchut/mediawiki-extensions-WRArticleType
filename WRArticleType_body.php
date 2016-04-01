@@ -14,7 +14,7 @@ class WRArticleType {
 	 */
 	private static $DATA_VAR = 'ArticleType';
 
-	public function onParserFirstCallInit( Parser &$parser ) {
+	public static function onParserFirstCallInit( Parser &$parser ) {
 		$parser->setFunctionHook( 'articletype', 'WRArticleType::setArticleType' );
 		return true;
 	}
@@ -28,7 +28,7 @@ class WRArticleType {
 	 *
 	 * @return string: HTML to insert in the page.
 	 */
-	public function setArticleType( Parser &$parser, $articleType ) {
+	public static function setArticleType( Parser &$parser, $articleType ) {
 		global $wgArticleTypeConfig;
 
 		$articleType = trim( htmlspecialchars( $articleType ) );
