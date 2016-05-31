@@ -16,7 +16,8 @@ $wgExtensionCredits['parserhook'][] = array(
 	'name'           => 'Kol-Zchut Article Type',
 	'author'         => 'Dror S. [FFS] ([http://www.kolzchut.org.il Kol-Zchut])',
 	'version'        => '1.2.0',
-	'url'            => 'http://www.kolzchut.org.il/he/Project:Extensions/WRArticleType',
+	'url'            => 'https://github.com/kolzchut/mediawiki-extensions-WRArticleType',
+	'license-name'   => 'GPL-2.0+',
 	'descriptionmsg' => 'wrarticletype-desc',
 );
 
