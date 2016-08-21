@@ -67,6 +67,15 @@ class WRArticleType {
 		return $type ?: 'unknown';
 	}
 
+	public static function getReadableArticleTypeFromCode( $code ) {
+		global $wgArticleTypeConfig;
+		if( in_array( $code, $wgArticleTypeConfig['types'] ) ) {
+			return wfMessage( 'articletype-type-'.$code );
+		}
+
+		return 'unknown';
+	}
+
 	/**
 	 * @param OutputPage $out
 	 * @param Skin $sk
