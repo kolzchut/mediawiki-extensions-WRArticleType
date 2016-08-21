@@ -55,7 +55,7 @@ class WRArticleType {
 		return true;
 	}
 
-	static function getArticleType( OutputPage $out, ParserOutput $parserOutput = null ) {
+	public static function getArticleType( OutputPage $out, ParserOutput $parserOutput = null ) {
 		$type = null;
 		if ( $parserOutput ) {
 			$type = $parserOutput->getExtensionData( WRArticleType::$DATA_VAR );
@@ -85,7 +85,9 @@ class WRArticleType {
 	 * ResourceLoaderGetConfigVars hook
 	 * Make extension configuration variables available in javascript
 	 *
-	 * @param $vars
+	 * @param array $vars
+	 * @param OutputPage $out
+	 *
 	 * @return true
 	 */
 	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
