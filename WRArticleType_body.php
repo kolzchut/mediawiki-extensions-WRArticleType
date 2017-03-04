@@ -29,12 +29,8 @@ class WRArticleType {
 	 * @return string: HTML to insert in the page.
 	 */
 	public static function setArticleType( Parser &$parser, $articleType ) {
-		global $wgArticleTypeConfig;
-
 		$articleType = trim( htmlspecialchars( $articleType ) );
-		if ( !in_array( $articleType, $wgArticleTypeConfig['types'] ) ) {
-			$articleType = 'unknown';
-		}
+		$articleType = self::isValidArticleType( $articleType ) ? $articleType : 'unknown';
 
 		$parser->getOutput()->setExtensionData( WRArticleType::$DATA_VAR, $articleType );
 		$parser->getOutput()->setProperty( WRArticleType::$DATA_VAR, $articleType );
@@ -67,9 +63,14 @@ class WRArticleType {
 		return $type ?: 'unknown';
 	}
 
+	public static function isValidArticleType( $type ) {
+		global $wgArticleTypeConfig;
+		return in_array( $type, $wgArticleTypeConfig['types'] );
+	}
+
 	public static function getReadableArticleTypeFromCode( $code ) {
 		global $wgArticleTypeConfig;
-		if( in_array( $code, $wgArticleTypeConfig['types'] ) ) {
+		if ( self::isValidArticleType( $code ) ) {
 			return wfMessage( 'articletype-type-'.$code );
 		}
 
