@@ -32,8 +32,8 @@ class WRArticleType {
 		$articleType = trim( htmlspecialchars( $articleType ) );
 		$articleType = self::isValidArticleType( $articleType ) ? $articleType : 'unknown';
 
-		$parser->getOutput()->setExtensionData( WRArticleType::$DATA_VAR, $articleType );
-		$parser->getOutput()->setProperty( WRArticleType::$DATA_VAR, $articleType );
+		$parser->getOutput()->setExtensionData( self::$DATA_VAR, $articleType );
+		$parser->getOutput()->setProperty( self::$DATA_VAR, $articleType );
 
 		return;
 	}
@@ -41,7 +41,7 @@ class WRArticleType {
 	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
 		global $wgArticleTypeConfig;
 
-		$type = WRArticleType::getArticleType( $out, $parserOutput );
+		$type = self::getArticleType( $out, $parserOutput );
 		if ( !in_array( $type, $wgArticleTypeConfig['noTitleText'] ) ) {
 			self::setPageTitle( $out, $parserOutput );
 		}
@@ -54,7 +54,7 @@ class WRArticleType {
 	public static function getArticleType( OutputPage $out, ParserOutput $parserOutput = null ) {
 		$type = null;
 		if ( $parserOutput ) {
-			$type = $parserOutput->getExtensionData( WRArticleType::$DATA_VAR );
+			$type = $parserOutput->getExtensionData( self::$DATA_VAR );
 		}
 		if ( $type == null && isset( $out->wgArticleType ) ) {
 			$type = $out->wgArticleType;
@@ -71,7 +71,7 @@ class WRArticleType {
 	public static function getReadableArticleTypeFromCode( $code ) {
 		global $wgArticleTypeConfig;
 		if ( self::isValidArticleType( $code ) ) {
-			return wfMessage( 'articletype-type-'.$code );
+			return wfMessage( 'articletype-type-' . $code );
 		}
 
 		return 'unknown';
@@ -106,14 +106,13 @@ class WRArticleType {
 		return true;
 	}
 
-
 	/**
 	 * @param OutputPage $out
 	 * @param ParserOutput $parserOutput
 	 *
 	 * @internal param string $articleType
 	 */
-	protected static function setPageTitle( OutputPage &$out, ParserOutput $parserOutput) {
+	protected static function setPageTitle( OutputPage &$out, ParserOutput $parserOutput ) {
 		$type = self::getArticleType( $out, $parserOutput );
 		$msgKey = "articletype-type-{$type}";
 		$typeMsg = wfMessage( $msgKey );
@@ -127,7 +126,5 @@ class WRArticleType {
 			$out->setPageTitle( $newPageTitle );
 		}
 	}
-
-
 
 }

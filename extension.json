@@ -1,0 +1,56 @@
+{
+	"name": "Kol-Zchut Article Type",
+	"version": "1.3.0",
+	"author": "Dror S. [FFS] ([http://www.kolzchut.org.il Kol-Zchut])",
+	"url": "https://github.com/kolzchut/mediawiki-extensions-WRArticleType",
+	"descriptionmsg": "wrarticletype-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "parserhook",
+	"MessagesDirs": {
+		"WRArticleType": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"WRArticleTypeMagic": "WRArticleType.i18n.magic.php"
+	},
+	"AutoloadClasses": {
+		"WRArticleType": "WRArticleType_body.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "WRArticleType::onParserFirstCallInit",
+		"OutputPageBodyAttributes": "WRArticleType::onOutputPageBodyAttributes",
+		"OutputPageParserOutput": "WRArticleType::onOutputPageParserOutput",
+		"MakeGlobalVariablesScript": "WRArticleType::onMakeGlobalVariablesScript"
+	},
+	"config": {
+		"ArticleTypeConfig": {
+			"value": {
+				"types": [
+					"portal",
+					"right",
+					"service",
+					"term",
+					"proceeding",
+					"health",
+					"organization",
+					"government",
+					"event",
+					"ruling",
+					"law",
+					"letter",
+					"faq",
+					"newsletter",
+					"user",
+					"mainpage"
+				],
+				"noTitleText": [
+					"unknown",
+					"portal",
+					"user"
+				]
+			}
+		}
+	},
+	"manifest_version": 2
+}

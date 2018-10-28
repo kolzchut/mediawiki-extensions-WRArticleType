@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"articletype-type-portal": "بوَابة",
+	"articletype-type-right": "حقوق",
+	"articletype-type-service": "خدمة",
+	"articletype-type-term": "مصطلح",
+	"articletype-type-proceeding": "إجراء",
+	"articletype-type-health": "الصحة",
+	"articletype-type-organization": "منظّمة",
+	"articletype-type-government": "جهة حكوميّة",
+	"articletype-type-ruling": "حكم قضائي",
+	"articletype-type-law": "قانون",
+	"articletype-type-letter": "رسالة",
+	"articletype-type-user": "مستخدِم"
+}

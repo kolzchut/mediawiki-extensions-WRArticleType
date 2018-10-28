@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dror S. [FFS]"
+		]
+	},
+	"articletype-type-portal": "פורטל",
+	"articletype-type-right": "זכות",
+	"articletype-type-service": "שירות",
+	"articletype-type-term": "מושג",
+	"articletype-type-proceeding": "הליך",
+	"articletype-type-health": "בריאות",
+	"articletype-type-organization": "ארגון",
+	"articletype-type-government": "גורם ממשל",
+	"articletype-type-event": "אירוע",
+	"articletype-type-ruling": "פסק דין",
+	"articletype-type-law": "חוק",
+	"articletype-type-letter": "מכתב",
+	"articletype-type-faq": "שאלות ותשובות",
+	"articletype-type-newsletter": "ידיעון",
+	"articletype-type-user": "משתמש"
+}

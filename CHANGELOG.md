@@ -4,6 +4,9 @@ Revision history for Extension:WRArticleType
 All notable changes to this project will be documented in this file.
 This project adheres (or attempts to adhere) to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2018-10-23
+Converted to MW's "new" extension registration mechanism.
+
 ## [1.2.0] - 2015-05-18
 ### Added
 - Save the article type into page_props as well, where it can be queried
