@@ -68,10 +68,14 @@ class WRArticleType {
 		return in_array( $type, $wgArticleTypeConfig['types'] );
 	}
 
-	public static function getReadableArticleTypeFromCode( $code ) {
+	public static function getReadableArticleTypeFromCode( $code, $count = 1 ) {
 		global $wgArticleTypeConfig;
 		if ( self::isValidArticleType( $code ) ) {
-			return wfMessage( 'articletype-type-' . $code );
+			$msgKey = "articletype-type-{$code}";
+			$typeMsg = wfMessage( $msgKey );
+			if ( $typeMsg->exists() && !$typeMsg->isBlank() ) {
+				return $typeMsg->numParams( $count )->text();
+			}
 		}
 
 		return 'unknown';
@@ -114,11 +118,10 @@ class WRArticleType {
 	 */
 	protected static function setPageTitle( OutputPage &$out, ParserOutput $parserOutput ) {
 		$type = self::getArticleType( $out, $parserOutput );
-		$msgKey = "articletype-type-{$type}";
-		$typeMsg = wfMessage( $msgKey );
-		if ( $typeMsg->exists() && !$typeMsg->isBlank() ) {
+		$articleTypeReadable = self::getReadableArticleTypeFromCode( $type );
+		if ( $articleTypeReadable !== null && $articleTypeReadable !== 'unknown' ) {
 			$currentPageTitle = $parserOutput->getDisplayTitle();
-			$additionaltext = '<span class="article-type"> (' . $typeMsg->plain() . ')</span>';
+			$additionaltext = '<span class="article-type"> (' . $articleTypeReadable . ')</span>';
 			$newPageTitle = $currentPageTitle . $additionaltext;
 
 			/* Set display both on ParserOutput and OutputPage, to be on the safe side */

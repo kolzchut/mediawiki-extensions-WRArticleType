@@ -27,26 +27,31 @@
 		"ArticleTypeConfig": {
 			"value": {
 				"types": [
-					"portal",
-					"right",
-					"service",
-					"term",
-					"proceeding",
-					"health",
-					"organization",
-					"government",
 					"event",
-					"ruling",
+					"faq",
+					"government",
+					"guide",
+					"health",
+					"landingpage",
 					"law",
 					"letter",
-					"faq",
+					"mainpage",
 					"newsletter",
-					"user",
-					"mainpage"
+					"organization",
+					"portal",
+					"portal-subpage",
+					"proceeding",
+					"right",
+					"ruling",
+					"service",
+					"term",
+					"user"
 				],
 				"noTitleText": [
-					"unknown",
+					"guide",
+					"landingpage",
 					"portal",
+					"unknown",
 					"user"
 				]
 			}

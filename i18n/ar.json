@@ -1,17 +1,23 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Dror S. [FFS]"
+		]
 	},
-	"articletype-type-portal": "بوَابة",
+	"articletype-type-portal": "{{PLURAL:$1|بوَابة|بوّابات}}",
+	"articletype-type-portal-subpage": "{{PLURAL:$1|صفحة فرعية في البوابة|صفحات فرعية في البوابة}}",
 	"articletype-type-right": "حقوق",
-	"articletype-type-service": "خدمة",
-	"articletype-type-term": "مصطلح",
-	"articletype-type-proceeding": "إجراء",
-	"articletype-type-health": "الصحة",
-	"articletype-type-organization": "منظّمة",
-	"articletype-type-government": "جهة حكوميّة",
-	"articletype-type-ruling": "حكم قضائي",
-	"articletype-type-law": "قانون",
-	"articletype-type-letter": "رسالة",
-	"articletype-type-user": "مستخدِم"
+	"articletype-type-service": "{{PLURAL:$1|خدمة|الخدمات}}",
+	"articletype-type-term": "{{PLURAL:$1|مصطلح|مصطلحات}}",
+	"articletype-type-proceeding": "{{PLURAL:$1|إجراء|إجراءات}}",
+	"articletype-type-health": "{{PLURAL:$1|الصحة|أمراض، متلازمات وإعاقات}}",
+	"articletype-type-organization": "{{PLURAL:$1|منظّمة|منظّمات الدعم والمساعدة}}",
+	"articletype-type-government": "{{PLURAL:$1|جهة حكوميّة|جهات حكوميّة}}",
+	"articletype-type-ruling": "{{PLURAL:$1|حكم قضائي|أحكام قضائية}}",
+	"articletype-type-law": "{{PLURAL:$1|قانون|قوانين}}",
+	"articletype-type-letter": "{{PLURAL:$1|رسالة|رسائل واستمارات}}",
+	"articletype-type-faq": "أسئلة وأجوبة",
+	"articletype-type-user": "{{PLURAL:$1|مستخدِم|مستخدِمون}}",
+	"articletype-type-landingpage": "{{PLURAL:$1|صفحة البدء|صفحات البدء}}",
+	"articletype-type-guide": "{{PLURAL:$1|دليل إرشاد/حقوق|أدلة إرشاد وحقوق}}"
 }
