@@ -4,8 +4,8 @@
 			"Dror S. [FFS]"
 		]
 	},
-	"wrarticletype": "Kol-Zchut Article Type Declaration",
-	"wrarticletype-desc": "Parser tag used to declare the article type",
+	"articletype": "Kol-Zchut Article Type Declaration",
+	"articletype-desc": "Parser tag used to declare the article type",
 	"articletype-type-portal": "{{PLURAL:$1|Portal|Portals}}",
 	"articletype-type-portal-subpage": "{{PLURAL:$1|Portal Subpage|Portal Subpages}}",
 	"articletype-type-right": "{{PLURAL:$1|Right|Rights}}",
