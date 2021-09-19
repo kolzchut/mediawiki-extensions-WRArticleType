@@ -14,7 +14,7 @@ class ArticleType {
 	/**
 	 * Get SELECT fields and joins for retrieving the article type
 	 *
-	 * @param null $articleType: filter by article type
+	 * @param null|string|array $articleType: filter by article type
 	 * @param string $fieldNameToCompare: if we want to compare to a differently name page_id field, such as log_page
 	 *
 	 * @return array[] With three keys:
@@ -29,7 +29,7 @@ class ArticleType {
 		$joinType  = $articleType ? 'INNER JOIN' : 'LEFT OUTER JOIN';
 		$joinConds = [ $pageIdFieldName . ' = article_type_page_props.pp_page', "article_type_page_props.pp_propname = '" . self::$DATA_VAR . "'" ];
 		if ( $articleType ) {
-			$joinConds[] = 'article_type_page_props.pp_value = ' . $dbr->addQuotes( $articleType );
+			$joinConds[] = 'article_type_page_props.pp_value IN (' . $dbr->makeList( (array)$articleType ) . ')';
 		}
 
 		$tables['article_type_page_props'] = 'page_props';
@@ -54,14 +54,29 @@ class ArticleType {
 	 */
 	public static function getArticleType( Title $title ) {
 		$pageProps = PageProps::getInstance();
-		$propArray = $pageProps->getProperties( $title, ArticleType::$DATA_VAR );
+		$propArray = $pageProps->getProperties( $title, self::$DATA_VAR );
 
 		return empty( $propArray ) ? null : array_values( $propArray )[0];
-
 	}
 
+	/**
+	 * @param string|array $type
+	 *
+	 * @return bool
+	 */
 	public static function isValidArticleType( $type ) {
-		return in_array( $type, self::getValidArticleTypes() );
+		$validValues = self::getValidArticleTypes();
+		// None defined, so all are valid
+		if( empty( $validValues ) ) {
+			return true;
+		}
+
+		if ( empty( $type ) ) {
+			return false;
+		}
+
+		$diff = array_diff( (array)$type, self::getValidArticleTypes() );
+		return count( $diff ) === 0;
 	}
 
 	public static function getReadableArticleTypeFromCode( $code, $count = 1 ) {
@@ -83,6 +98,7 @@ class ArticleType {
 		global $wgArticleTypeConfig;
 		return $wgArticleTypeConfig['types'];
 	}
+
 }
 
 \class_alias(ArticleType::class, \WRArticleType::class, true );
