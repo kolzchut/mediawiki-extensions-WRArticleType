@@ -14,8 +14,8 @@ class ArticleType {
 	/**
 	 * Get SELECT fields and joins for retrieving the article type
 	 *
-	 * @param null|string|array $articleType: filter by article type
-	 * @param string $fieldNameToCompare: if we want to compare to a differently name page_id field, such as log_page
+	 * @param null|string|array $articleType filter by article type
+	 * @param string $pageIdFieldName if we want to compare to a differently named page_id field, such as log_page
 	 *
 	 * @return array[] With three keys:
 	 *   - tables: (string[]) to include in the `$table` to `IDatabase->select()`
