@@ -10,13 +10,16 @@ class Hooks implements
 	\MediaWiki\Hook\MakeGlobalVariablesScriptHook,
 	\MediaWiki\Hook\ParserFirstCallInitHook,
 	\MediaWiki\Hook\OutputPageParserOutputHook,
-	\MediaWiki\Hook\OutputPageBodyAttributesHook {
+	\MediaWiki\Hook\OutputPageBodyAttributesHook
+{
 
 	/**
 	 * This hook is called when the parser initialises for the first time.
 	 *
 	 * @param Parser $parser Parser object being initialised
-	 * @return bool|void True or no return value to continue or false to abort
+	 *
+	 * @return void
+	 * @throws \MWException
 	 */
 	public function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'articletype', [ __CLASS__, 'setArticleType' ] );
@@ -25,28 +28,28 @@ class Hooks implements
 	/**
 	 * Parser hook handler for {{#articletype}}
 	 *
-	 * @param Parser $parser : Parser instance available to render
+	 * @param Parser &$parser : Parser instance available to render
 	 *  wikitext into html, or parser methods.
 	 * @param string $articleType : the article type to set
 	 *
-	 * @return string: HTML to insert in the page.
+	 * @return string HTML to insert in the page.
 	 */
-	public static function setArticleType( Parser &$parser, string $articleType ) {
+	public static function setArticleType( Parser &$parser, string $articleType ): string {
 		$articleType = trim( htmlspecialchars( $articleType ) );
 		$articleType = ArticleType::isValidArticleType( $articleType ) ? $articleType : 'unknown';
 
-		$parser->getOutput()->setExtensionData( ArticleType::$DATA_VAR, $articleType );
-		$parser->getOutput()->setProperty( ArticleType::$DATA_VAR, $articleType );
+		$parser->getOutput()->setExtensionData( ArticleType::DATA_VAR, $articleType );
+		$parser->getOutput()->setProperty( ArticleType::DATA_VAR, $articleType );
 
 		return '';
 	}
 
-	/*
+	/**
 	 * Save data from ParserOutput to OutputPage
 	 *
 	 * @inheritDoc
 	 */
-	public function onOutputPageParserOutput( $out, $parserOutput ) : void {
+	public function onOutputPageParserOutput( $out, $parserOutput ): void {
 		global $wgArticleTypeConfig;
 
 		$type = self::getArticleTypeFromOutput( $out, $parserOutput );
@@ -68,7 +71,7 @@ class Hooks implements
 	private static function getArticleTypeFromOutput( OutputPage $out, ParserOutput $parserOutput = null ) {
 		$type = null;
 		if ( $parserOutput ) {
-			$type = $parserOutput->getExtensionData( ArticleType::$DATA_VAR );
+			$type = $parserOutput->getExtensionData( ArticleType::DATA_VAR );
 		}
 		if ( $type == null && isset( $out->wgArticleType ) ) {
 			$type = $out->wgArticleType;
@@ -84,7 +87,7 @@ class Hooks implements
 	 */
 	public function onOutputPageBodyAttributes( $out, $sk, &$bodyAttrs ) {
 		$type = self::getArticleTypeFromOutput( $out );
-		$bodyAttrs['class'] .= " article-type-{$type}";
+		$bodyAttrs['class'] .= " article-type-$type";
 	}
 
 	/**
@@ -97,7 +100,7 @@ class Hooks implements
 	}
 
 	/**
-	 * @param OutputPage $out
+	 * @param OutputPage &$out
 	 * @param ParserOutput $parserOutput
 	 *
 	 * @internal param string $articleType

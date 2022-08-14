@@ -4,12 +4,13 @@ namespace MediaWiki\Extension\ArticleType;
 
 use PageProps;
 use Title;
+use function class_alias;
 
 class ArticleType {
 	/**
 	 * @const
 	 */
-	static string $DATA_VAR = 'ArticleType';
+	public const DATA_VAR = 'ArticleType';
 
 	/**
 	 * Get SELECT fields and joins for retrieving the article type
@@ -23,11 +24,14 @@ class ArticleType {
 	 *   - join_conds: (array) to include in the `$join_conds` to `IDatabase->select()`
 	 *  All tables, fields, and joins are aliased, so `+` is safe to use.
 	 */
-	public static function getJoin( $articleType = null, $pageIdFieldName = 'page_id' ): array {
+	public static function getJoin( $articleType = null, string $pageIdFieldName = 'page_id' ): array {
 		$dbr = wfGetDB( DB_REPLICA );
 
 		$joinType  = $articleType ? 'INNER JOIN' : 'LEFT OUTER JOIN';
-		$joinConds = [ $pageIdFieldName . ' = article_type_page_props.pp_page', "article_type_page_props.pp_propname = '" . self::$DATA_VAR . "'" ];
+		$joinConds = [
+			$pageIdFieldName . ' = article_type_page_props.pp_page',
+			"article_type_page_props.pp_propname = '" . self::DATA_VAR . "'"
+		];
 		if ( $articleType ) {
 			$joinConds[] = 'article_type_page_props.pp_value IN (' . $dbr->makeList( (array)$articleType ) . ')';
 		}
@@ -54,7 +58,7 @@ class ArticleType {
 	 */
 	public static function getArticleType( Title $title ) {
 		$pageProps = PageProps::getInstance();
-		$propArray = $pageProps->getProperties( $title, self::$DATA_VAR );
+		$propArray = $pageProps->getProperties( $title, self::DATA_VAR );
 
 		return empty( $propArray ) ? null : array_values( $propArray )[0];
 	}
@@ -64,10 +68,10 @@ class ArticleType {
 	 *
 	 * @return bool
 	 */
-	public static function isValidArticleType( $type ) {
+	public static function isValidArticleType( $type ): bool {
 		$validValues = self::getValidArticleTypes();
 		// None defined, so all are valid
-		if( empty( $validValues ) ) {
+		if ( empty( $validValues ) ) {
 			return true;
 		}
 
@@ -79,9 +83,15 @@ class ArticleType {
 		return count( $diff ) === 0;
 	}
 
-	public static function getReadableArticleTypeFromCode( $code, $count = 1 ) {
+	/**
+	 * @param string $code
+	 * @param int $count
+	 *
+	 * @return string
+	 */
+	public static function getReadableArticleTypeFromCode( string $code, int $count = 1 ): string {
 		if ( self::isValidArticleType( $code ) ) {
-			$msgKey = "articletype-type-{$code}";
+			$msgKey = "articletype-type-$code";
 			$typeMsg = wfMessage( $msgKey );
 			if ( $typeMsg->exists() && !$typeMsg->isBlank() ) {
 				return $typeMsg->numParams( $count )->text();
@@ -101,5 +111,5 @@ class ArticleType {
 
 }
 
-\class_alias(ArticleType::class, \WRArticleType::class, true );
-
+// b/c
+class_alias( ArticleType::class, \WRArticleType::class, true );
