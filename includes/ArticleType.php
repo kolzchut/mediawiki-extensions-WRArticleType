@@ -30,7 +30,7 @@ class ArticleType {
 		$joinType  = $articleType ? 'INNER JOIN' : 'LEFT OUTER JOIN';
 		$joinConds = [
 			$pageIdFieldName . ' = article_type_page_props.pp_page',
-			"article_type_page_props.pp_propname = '" . self::DATA_VAR . "'"
+			'article_type_page_props.pp_propname' => self::DATA_VAR
 		];
 		if ( $articleType ) {
 			$joinConds[] = 'article_type_page_props.pp_value IN (' . $dbr->makeList( (array)$articleType ) . ')';
@@ -112,4 +112,4 @@ class ArticleType {
 }
 
 // b/c
-class_alias( ArticleType::class, \WRArticleType::class, true );
+class_alias( ArticleType::class, 'WRArticleType', true );
