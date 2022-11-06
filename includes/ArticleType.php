@@ -84,12 +84,12 @@ class ArticleType {
 	}
 
 	/**
-	 * @param string $code
+	 * @param string|null $code
 	 * @param int $count
 	 *
 	 * @return string
 	 */
-	public static function getReadableArticleTypeFromCode( string $code, int $count = 1 ): string {
+	public static function getReadableArticleTypeFromCode( ?string $code, int $count = 1 ): string {
 		if ( self::isValidArticleType( $code ) ) {
 			$msgKey = "articletype-type-$code";
 			$typeMsg = wfMessage( $msgKey );
