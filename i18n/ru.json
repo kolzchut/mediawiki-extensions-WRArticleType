@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dror S. [FFS]"
+		]
+	},
+	"articletype": "Kol-Zchut Article Type Declaration",
+	"articletype-desc": "Parser tag used to declare the article type",
+	"articletype-type-portal": "{{PLURAL:$1|Портал|Порталы}}",
+	"articletype-type-portal-subpage": "{{PLURAL:$1|Портал/подстраница|Подстраница на портале}}",
+	"articletype-type-right": "{{PLURAL:$1|Право|Права}}",
+	"articletype-type-service": "{{PLURAL:$1|Служба|Услуги}}",
+	"articletype-type-term": "{{PLURAL:$1|Понятие|Понятия }}",
+	"articletype-type-proceeding": "{{PLURAL:$1|Процедура|Процедуры}}",
+	"articletype-type-health": "{{PLURAL:$1|Болезнь|Заболевания, синдромы и недуги}}",
+	"articletype-type-organization": "{{PLURAL:$1|Организация|Организации, предоставляющие помощь}}",
+	"articletype-type-government": "{{PLURAL:$1|Правительственные ведомства|Правительство}}",
+	"articletype-type-ruling": "{{PLURAL:$1|Судебное решение|СУдебные решения}}",
+	"articletype-type-law": "{{PLURAL:$1|Закон|Законы}}",
+	"articletype-type-letter": "{{PLURAL:$1|Письмо|Письма и бланки}}",
+	"articletype-type-faq": "Вопросы и ответы",
+	"articletype-type-user": "{{PLURAL:$1|Пользователь|Пользователи}}",
+	"articletype-type-landingpage": "{{PLURAL:$1|Целевая страница|Целевые страницы}}",
+	"articletype-type-guide": "{{PLURAL:$1|Руководство/Справочник|Руководства и справочники}}"
+}
