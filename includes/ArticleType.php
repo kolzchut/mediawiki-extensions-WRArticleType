@@ -64,7 +64,7 @@ class ArticleType {
 	}
 
 	/**
-	 * @param string|array $type
+	 * @param string|array|null $type
 	 *
 	 * @return bool
 	 */
@@ -86,13 +86,16 @@ class ArticleType {
 	/**
 	 * @param string|null $code
 	 * @param int $count
-	 *
+	 * @param array|null $options ['language' => 'language_code' ]
 	 * @return string
+	 * @throws \MWException
 	 */
-	public static function getReadableArticleTypeFromCode( ?string $code, int $count = 1 ): string {
+	public static function getReadableArticleTypeFromCode( ?string $code, int $count = 1, ?array $options = [] ): string {
 		if ( self::isValidArticleType( $code ) ) {
 			$msgKey = "articletype-type-$code";
 			$typeMsg = wfMessage( $msgKey );
+			$inLanguage = $options['language'] ?? null;
+			$typeMsg = $inLanguage ? $typeMsg->inLanguage( $inLanguage ) : $typeMsg->inContentLanguage();
 			if ( $typeMsg->exists() && !$typeMsg->isBlank() ) {
 				return $typeMsg->numParams( $count )->text();
 			}
