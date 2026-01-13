@@ -21,7 +21,7 @@ class Hooks implements
 	 * @return void
 	 * @throws \MWException
 	 */
-	public function onParserFirstCallInit( $parser ) {
+	public function onParserFirstCallInit( $parser ): void {
 		$parser->setFunctionHook( 'articletype', [ __CLASS__, 'setArticleType' ] );
 	}
 
@@ -85,7 +85,7 @@ class Hooks implements
 	 *
 	 * @inheritDoc
 	 */
-	public function onOutputPageBodyAttributes( $out, $sk, &$bodyAttrs ) {
+	public function onOutputPageBodyAttributes( $out, $sk, &$bodyAttrs ): void {
 		$type = self::getArticleTypeFromOutput( $out );
 		$bodyAttrs['class'] .= " article-type-$type";
 	}
@@ -95,7 +95,7 @@ class Hooks implements
 	 *
 	 * @inheritDoc
 	 */
-	public function onMakeGlobalVariablesScript( &$vars, $out ) {
+	public function onMakeGlobalVariablesScript( &$vars, $out ): void {
 		$vars['wgArticleType'] = self::getArticleTypeFromOutput( $out );
 	}
 
