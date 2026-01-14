@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\ArticleType;
 
+use MediaWiki\MediaWikiServices;
 use PageProps;
 use Title;
 use function class_alias;
@@ -57,7 +58,7 @@ class ArticleType {
 	 * @return mixed|null
 	 */
 	public static function getArticleType( Title $title ) {
-		$pageProps = PageProps::getInstance();
+		$pageProps = MediaWikiServices::getInstance()->getPageProps();
 		$propArray = $pageProps->getProperties( $title, self::DATA_VAR );
 
 		return empty( $propArray ) ? null : array_values( $propArray )[0];
