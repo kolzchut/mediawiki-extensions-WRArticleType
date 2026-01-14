@@ -26,7 +26,9 @@ class ArticleType {
 	 *  All tables, fields, and joins are aliased, so `+` is safe to use.
 	 */
 	public static function getJoin( $articleType = null, string $pageIdFieldName = 'page_id' ): array {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()
+			->getConnectionProvider()
+			->getReplicaDatabase();
 
 		$joinType  = $articleType ? 'INNER JOIN' : 'LEFT OUTER JOIN';
 		$joinConds = [
