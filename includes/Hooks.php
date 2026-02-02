@@ -12,6 +12,8 @@ class Hooks implements
 	\MediaWiki\Hook\OutputPageParserOutputHook,
 	\MediaWiki\Hook\OutputPageBodyAttributesHook
 {
+	/** @var string|null Cached article type for the current page */
+	private static ?string $cachedArticleType = null;
 
 	/**
 	 * This hook is called when the parser initialises for the first time.
@@ -39,7 +41,7 @@ class Hooks implements
 		$articleType = ArticleType::isValidArticleType( $articleType ) ? $articleType : 'unknown';
 
 		$parser->getOutput()->setExtensionData( ArticleType::DATA_VAR, $articleType );
-		$parser->getOutput()->setProperty( ArticleType::DATA_VAR, $articleType );
+		$parser->getOutput()->setPageProperty( ArticleType::DATA_VAR, $articleType );
 
 		return '';
 	}
@@ -57,7 +59,7 @@ class Hooks implements
 			self::setPageTitle( $out, $parserOutput );
 		}
 
-		$out->wgArticleType = $type;
+		self::$cachedArticleType = $type;
 	}
 
 	/**
@@ -68,13 +70,13 @@ class Hooks implements
 	 *
 	 * @return mixed|string
 	 */
-	private static function getArticleTypeFromOutput( OutputPage $out, ParserOutput $parserOutput = null ) {
+	private static function getArticleTypeFromOutput(OutputPage $out, ?ParserOutput $parserOutput = null ) {
 		$type = null;
 		if ( $parserOutput ) {
 			$type = $parserOutput->getExtensionData( ArticleType::DATA_VAR );
 		}
-		if ( $type == null && isset( $out->wgArticleType ) ) {
-			$type = $out->wgArticleType;
+		if ( $type == null && self::$cachedArticleType !== null ) {
+			$type = self::$cachedArticleType;
 		}
 
 		return $type ?: 'unknown';
