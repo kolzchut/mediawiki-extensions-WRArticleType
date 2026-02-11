@@ -12,9 +12,6 @@
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\ArticleType\\": "includes/"
 	},
-	"AutoloadClasses": {
-		"WRArticleType": "includes/ArticleType.php"
-	},
 	"MessagesDirs": {
 		"ArticleType": [
 			"i18n"
@@ -24,13 +21,13 @@
 		"ArticleTypeMagic": "ArticleType.i18n.magic.php"
 	},
 	"Hooks": {
-		"ParserFirstCallInit": "handleHooks",
-		"MakeGlobalVariablesScript": "handleHooks",
-		"OutputPageParserOutput": "handleHooks",
-		"OutputPageBodyAttributes": "handleHooks"
+		"ParserFirstCallInit": "ArticleTypeHooks",
+		"MakeGlobalVariablesScript": "ArticleTypeHooks",
+		"OutputPageParserOutput": "ArticleTypeHooks",
+		"OutputPageBodyAttributes": "ArticleTypeHooks"
 	},
 	"HookHandlers": {
-		"handleHooks": {
+		"ArticleTypeHooks": {
 			"class": "MediaWiki\\Extension\\ArticleType\\Hooks"
 		}
 	},
