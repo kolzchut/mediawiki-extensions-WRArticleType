@@ -3,7 +3,6 @@
 namespace MediaWiki\Extension\ArticleType;
 
 use MediaWiki\MediaWikiServices;
-use PageProps;
 use Title;
 use function class_alias;
 
@@ -91,9 +90,10 @@ class ArticleType {
 	 * @param int $count
 	 * @param array|null $options ['language' => 'language_code' ]
 	 * @return string
-	 * @throws \MWException
 	 */
-	public static function getReadableArticleTypeFromCode( ?string $code, int $count = 1, ?array $options = [] ): string {
+	public static function getReadableArticleTypeFromCode(
+		?string $code, int $count = 1, ?array $options = []
+	): string {
 		if ( self::isValidArticleType( $code ) ) {
 			$msgKey = "articletype-type-$code";
 			$typeMsg = wfMessage( $msgKey );

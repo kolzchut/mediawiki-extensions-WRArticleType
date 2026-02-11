@@ -70,7 +70,7 @@ class Hooks implements
 	 *
 	 * @return mixed|string
 	 */
-	private static function getArticleTypeFromOutput(OutputPage $out, ?ParserOutput $parserOutput = null ) {
+	private static function getArticleTypeFromOutput( OutputPage $out, ?ParserOutput $parserOutput = null ) {
 		$type = null;
 		if ( $parserOutput ) {
 			$type = $parserOutput->getExtensionData( ArticleType::DATA_VAR );
