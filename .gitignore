@@ -1,6 +1,6 @@
-.*.swp
-*~
-/.project
 /composer.lock
 /vendor
 /node_modules
+/package-lock.json
+.eslintcache
+/.stylelintcache

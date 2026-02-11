@@ -3,5 +3,25 @@
 		"authors": [
 			"Dror S. [FFS]"
 		]
-	}
+	},
+	"articletype": "Extension name",
+	"articletype-desc": "{{desc|name=ArticleType|url=https://github.com/kolzchut/mediawiki-extensions-WRArticleType}}",
+	"articletype-type-portal": "Article type name",
+	"articletype-type-portal-subpage": "Article type name",
+	"articletype-type-right": "Article type name",
+	"articletype-type-service": "Article type name",
+	"articletype-type-term": "Article type name",
+	"articletype-type-proceeding": "Article type name",
+	"articletype-type-health": "Article type name",
+	"articletype-type-organization": "Article type name",
+	"articletype-type-government": "Article type name",
+	"articletype-type-event": "Article type name",
+	"articletype-type-ruling": "Article type name",
+	"articletype-type-law": "Article type name",
+	"articletype-type-letter": "Article type name",
+	"articletype-type-faq": "Article type name",
+	"articletype-type-newsletter": "Article type name",
+	"articletype-type-user": "Article type name",
+	"articletype-type-landingpage": "Article type name",
+	"articletype-type-guide": "Article type name"
 }
