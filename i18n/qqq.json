@@ -6,6 +6,7 @@
 	},
 	"articletype": "Extension name",
 	"articletype-desc": "{{desc|name=ArticleType|url=https://github.com/kolzchut/mediawiki-extensions-WRArticleType}}",
+	"articletype-type-mainpage": "Article type name",
 	"articletype-type-portal": "Article type name",
 	"articletype-type-portal-subpage": "Article type name",
 	"articletype-type-right": "Article type name",

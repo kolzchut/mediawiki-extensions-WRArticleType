@@ -4,6 +4,7 @@
 			"Dror S. [FFS]"
 		]
 	},
+	"articletype-type-mainpage": "עמוד ראשי",
 	"articletype-type-portal": "{{PLURAL:$1|פורטל|פורטלים}}",
 	"articletype-type-portal-subpage": "{{PLURAL:$1|תת-עמוד בפורטל|תתי-עמודים בפורטל}}",
 	"articletype-type-right": "{{PLURAL:$1|זכות|זכויות}}",

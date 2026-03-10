@@ -6,6 +6,7 @@
 	},
 	"articletype": "Kol-Zchut Article Type Declaration",
 	"articletype-desc": "Parser tag used to declare the article type",
+	"articletype-type-mainpage": "Главная страница",
 	"articletype-type-portal": "{{PLURAL:$1|Портал|Порталы}}",
 	"articletype-type-portal-subpage": "{{PLURAL:$1|Портал/подстраница|Подстраница на портале}}",
 	"articletype-type-right": "{{PLURAL:$1|Право|Права}}",
